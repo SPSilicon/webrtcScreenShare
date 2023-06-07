@@ -1,0 +1,14 @@
+video {
+    background: #222;
+    margin: 0 0 20px 0;
+    --width: 46%;
+    width: var(--width);
+    height: auto;
+}
+
+div#container{
+    margin: 0 auto 0 auto;
+    max-width: 60em;
+    height : auto;
+    padding: 1em 1.5em 1.3em 1.5em;
+}
