@@ -80,11 +80,12 @@ async function start() {
             });
         }
     }
+    
     peerConnection.ondatachannel = function (event) {
         dataChannel = event.channel;
     };
 
-    const mediaStream = navigator.mediaDevices
+    navigator.mediaDevices
     .getUserMedia({
       audio: true,
       video: true
@@ -151,6 +152,16 @@ function handleCandidate(candidate) {
 
 function handleClose() {
     console.log('Ending call');
+    while(me.srcObject.getTracks().length) {
+        me.srcObject.getTracks()[0].stop();
+        me.srcObject.removeTrack(me.srcObject.getTracks()[0]);
+    }
+    while(opp.srcObject!=null&&opp.srcObject.getTracks().length) {
+        opp.srcObject.getTracks()[0].stop();
+        opp.srcObject.removeTrack(opp.srcObject.getTracks()[0]);
+    }
+
+
     peerConnection.close();
     peerConnection = null;
     stopButton.disabled = true;
